@@ -1,0 +1,50 @@
+name: TuistSample CI
+
+# Triggers
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Jobs
+jobs:
+  build:
+    name: Build and Test
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Install Mise and Tuist
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+
+      - name: Lint Style
+        run: |
+          mise x -- swiftlint lint --strict
+          
+      - name: Generate Project
+        run: |
+          tuist generate
+          
+      - name: Select Latest Simulator
+        run: |
+          # 사용 가능한 기기 목록을 가져와 'iPhone'이 포함된 기기 중 이름순으로 최신 기기를 찾음
+          DEVICE_NAME=$(xcrun simctl list devices available --json | jq -r '.devices | map(select(length > 0)) | add | map(select(.name | contains("iPhone"))) | sort_by(.name) | last | .name')
+          
+          # 찾은 기기 이름을 로그에 출력
+          echo "Found Available Device: $DEVICE_NAME"
+          
+          # 이후에 사용할 수 있도록 환경변수에 등록
+          echo "DEVICE_NAME=$DEVICE_NAME" >> $GITHUB_ENV
+
+      - name: Build App
+        run: |
+          xcodebuild clean test \
+            -workspace TuistSample.xcworkspace \
+            -scheme TuistSample \
+            -destination "platform=iOS Simulator,name=$DEVICE_NAME,OS=latest" \
+            -enableCodeCoverage YES

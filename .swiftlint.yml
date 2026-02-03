@@ -1,0 +1,30 @@
+# .swiftlint.yml
+#
+
+# 실행에서 제외할 규칙들
+disabled_rules:
+    - trailing_whitespace # 줄 끝의 공백 제거
+    - force_try           # try! 사용 허용
+    
+# 기본 규칙 외 추가 규칙
+opt_in_rules:
+    - empty_count         # .count == 0 대신 .isEmpty 사용 강제
+    
+# 검사 경로
+included:
+    - TuistSample/Sources
+    - TuistSample//Tests
+    
+# 검사 제외 경로
+excluded:
+    - SwiftLint
+    - Tuist
+    - DerivedData
+    - "*.generated.swift"
+    
+# 한 줄의 길이 제한
+line_length:
+    warning: 150
+    error: 200
+    
+

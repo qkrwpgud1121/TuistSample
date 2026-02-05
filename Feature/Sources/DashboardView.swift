@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Core
 
 public struct DashboardView: View {
     

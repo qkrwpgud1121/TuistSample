@@ -20,3 +20,13 @@ public struct DailyContribution: Identifiable {
         self.completedCount = completedCount
     }
 }
+
+extension DailyContribution {
+    public static var sampleData: [DailyContribution] {
+        [
+            DailyContribution(date: Date(), totalCount: 10, completedCount: 3),
+            DailyContribution(date: Date(), totalCount: 8, completedCount: 7),
+            DailyContribution(date: Date(), totalCount: 10, completedCount: 5)
+        ]
+    }
+}

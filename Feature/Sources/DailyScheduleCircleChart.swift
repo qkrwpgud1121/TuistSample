@@ -10,7 +10,12 @@ import Core
 
 struct DailyScheduleCircleChart: View {
     var body: some View {
-        Text("DailyScheduleCircleChart")
+        ZStack {
+            Circle()
+                .trim(from: 0, to: 0.25)
+                .stroke(.blue, lineWidth: 20)
+        }
+        
     }
 }
 

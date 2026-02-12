@@ -10,6 +10,8 @@ import Core
 
 struct DailyScheduleCircleChart: View {
     
+    public var schedules: [DailySchedule]
+    
     var body: some View {
         ZStack {
             Circle()

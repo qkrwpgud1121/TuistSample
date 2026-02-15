@@ -11,13 +11,14 @@ import Core
 public struct DashboardView: View {
     
     private var contributions = DailyContribution.sampleData
+    private var schedules = DailySchedule.sampleData
     
     public init() {}
     
     public var body: some View {
         ScrollView {
             VStack {
-                DailyScheduleCircleChart()
+                DailyScheduleCircleChart(schedules: schedules)
                 MonthlyHeatmap(contributions: contributions)
                 DailyTodoList()
             }

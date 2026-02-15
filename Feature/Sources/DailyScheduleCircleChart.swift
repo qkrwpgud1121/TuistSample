@@ -10,19 +10,24 @@ import Core
 
 struct DailyScheduleCircleChart: View {
     
-    public var schedules: [DailySchedule]
+    let schedules: [DailySchedule]
     
     var body: some View {
         ZStack {
             Circle()
-                .trim(from: 0, to: 0.25)
-                .stroke(.blue, lineWidth: 20)
-                .rotationEffect(.degrees(-90))
+                .stroke(.gray, lineWidth: 20)
+            
+            ForEach(schedules, id: \.title) { schedule in
+                Circle()
+                    .trim(from: Date.progress(from: schedule.startTime, to: schedule.endTime), to: 0.25)
+                    .stroke(.blue, lineWidth: 20)
+                    .rotationEffect(.degrees(-90))
+            }
         }
         
     }
 }
 
 #Preview {
-    DailyScheduleCircleChart()
+    DailyScheduleCircleChart(schedules: DailySchedule.sampleData)
 }

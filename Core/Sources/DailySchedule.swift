@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Shared
 
 public struct DailySchedule {
     public var title: String
